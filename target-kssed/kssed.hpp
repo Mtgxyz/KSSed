@@ -6,6 +6,7 @@ using namespace ruby;
 using namespace hiro;
 #include "configuration/config.hpp"
 #include "mainwin/mainwindow.hpp"
+#include "rom/rom.hpp"
 extern Video* video;
 extern Audio* audio;
 extern Input* input;

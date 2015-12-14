@@ -1,5 +1,5 @@
 name := kssed
-ui_objects := ui-kssed ui-config ui-mainwin
+ui_objects := ui-kssed ui-config ui-mainwin ui-rom
 ui_objects += ruby hiro
 ui_objects += $(if $(call streq,$(platform),windows),ui-resource)
 ifeq ($(platform),windows)
@@ -32,6 +32,7 @@ obj/hiro.o: hiro/hiro.cpp $(call rwildcard,hiro/)
 obj/ui-kssed.o: $(ui)/kssed.cpp $(call rwildcard,$(ui)/)
 obj/ui-config.o: $(ui)/configuration/config.cpp $(call rwildcard,$(ui)/)
 obj/ui-mainwin.o: $(ui)/mainwin/mainwindow.cpp $(call rwildcard,$(ui)/)
+obj/ui-rom.o: $(ui)/rom/rom.cpp $(call rwildcard,$(ui)/)
 obj/ui-resource.o:
 	windres data/resource.rc obj/ui-resource.o
 build: $(objects)
@@ -46,11 +47,7 @@ else
 	mkdir -p $(prefix)/bin/
 	mkdir -p $(prefix)/share/icons/
 	mkdir -p $(prefix)/$(name)/
-	mkdir -p ~/Emulation/System/
 	cp out/$(name) $(prefix)/bin/$(name)
-	cp data/higan.png $(prefix)/share/icons/$(name).png
-	cp data/cheats.bml $(prefix)/$(name)/cheats.bml
-	cp -R profile/* ~/Emulation/System/
 endif
 
 uninstall:

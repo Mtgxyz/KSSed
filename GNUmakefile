@@ -1,7 +1,7 @@
 include nall/GNUmakefile
 target = kssed
 # compiler
-flags += -I. -g3 -Werror #-O3
+flags += -I. -g -fno-wrapv -Werror #-O3
 objects := libco
 
 # profile-guided optimization mode
@@ -32,7 +32,7 @@ ifeq ($(platform),windows)
 else ifeq ($(platform),macosx)
   flags += -march=native
 else ifeq ($(platform),linux)
-  flags += -march=native -fopenmp
+  #flags += -march=native -fopenmp
   link += -fopenmp
   link += -Wl,-export-dynamic
   link += -lX11 -lXext -ldl
