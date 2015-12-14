@@ -23,8 +23,11 @@ Program::Program(lstring args) {
   Application::onMain({&Program::main, this});
   new ConfigurationManager;
   new mainWindow;
+  mainwin->setVisible();
+  mainwin->setFocused();
+  mainwin->setTitle("KSSed");
   video = Video::create(config->video.driver);
-  //video->set(Video::Handle, mainwin->viewport.handle());
+  video->set(Video::Handle, mainwin->viewport.handle());
   std::clog<<config->video.driver.data()<<std::endl;
   if(!video->init()) {
     std::cerr<<"Could not create video!"<<std::endl;
@@ -33,20 +36,16 @@ Program::Program(lstring args) {
   }
   uint32_t* output;
   unsigned length;
-  /*if(video->lock(output, length, 640, 480)) {
+  if(video->lock(output, length, 640, 480)) {
     for(auto y : range(480)) {
       uint32_t* dp = output + y * (length >> 2);
       for(auto x : range(640)) *dp++ = 0xFF00FF00;
     }
     video->unlock();
     video->refresh();	
-  }*/
-  mainwin->setVisible();
-  mainwin->setFocused();
-  mainwin->setTitle("KSSed");
+  }
 }
 auto Program::main() -> void {
-  //Nothing
 }
 auto Program::quit() -> void {
   delete video;
