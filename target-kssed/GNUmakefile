@@ -33,7 +33,7 @@ obj/ui-kssed.o: $(ui)/kssed.cpp $(call rwildcard,$(ui)/)
 obj/ui-config.o: $(ui)/configuration/config.cpp $(call rwildcard,$(ui)/)
 obj/ui-mainwin.o: $(ui)/mainwin/mainwindow.cpp $(call rwildcard,$(ui)/)
 obj/ui-rom.o: $(ui)/rom/rom.cpp $(call rwildcard,$(ui)/)
-obj/ui-room.o: $(ui)/sdx/room.cpp $(call rwildcard,$(ui)/)
+obj/ui-room.o: $(ui)/ksd/room.cpp $(call rwildcard,$(ui)/)
 obj/ui-resource.o:
 	windres data/resource.rc obj/ui-resource.o
 build: $(objects)
