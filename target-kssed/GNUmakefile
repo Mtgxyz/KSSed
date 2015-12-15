@@ -1,5 +1,5 @@
 name := kssed
-ui_objects := ui-kssed ui-config ui-mainwin ui-rom
+ui_objects := ui-kssed ui-config ui-mainwin ui-rom ui-room
 ui_objects += ruby hiro
 ui_objects += $(if $(call streq,$(platform),windows),ui-resource)
 ifeq ($(platform),windows)
@@ -33,6 +33,7 @@ obj/ui-kssed.o: $(ui)/kssed.cpp $(call rwildcard,$(ui)/)
 obj/ui-config.o: $(ui)/configuration/config.cpp $(call rwildcard,$(ui)/)
 obj/ui-mainwin.o: $(ui)/mainwin/mainwindow.cpp $(call rwildcard,$(ui)/)
 obj/ui-rom.o: $(ui)/rom/rom.cpp $(call rwildcard,$(ui)/)
+obj/ui-rom.o: $(ui)/sdx/room.cpp $(call rwildcard,$(ui)/)
 obj/ui-resource.o:
 	windres data/resource.rc obj/ui-resource.o
 build: $(objects)
