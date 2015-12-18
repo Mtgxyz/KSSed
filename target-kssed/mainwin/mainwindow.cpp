@@ -2,6 +2,22 @@
 #include <stdint.h>
 #include <iostream>
 mainWindow* mainwin=nullptr;
+int resolv(int addr) {
+  if(addr > 0xFFFFFF)
+    return -1;
+  if((addr < 0xC00000)&&!(addr&0x8000))
+    return -1;
+  if((addr < 0x800000)&&(addr >= 0x400000))
+    return -1;
+  unsigned char bank=(unsigned char)(addr>>16);
+  if((bank<0xC0)&&(bank>0x7F))
+    bank-=0x40;
+  std::cout<<std::hex<<addr<<"->"<<std::hex<<((addr&0x7FFF)+(bank<<15))<<" or "<<std::hex<<(addr-0xC0000)<<std::endl;
+  if(bank<0x80)
+    return (addr&0x7FFF)+(bank<<15);
+  else
+    return addr-0xC00000;  
+}
 mainWindow::mainWindow() {
   mainwin=this;
   fileMenu.setText("File");
@@ -12,22 +28,7 @@ mainWindow::mainWindow() {
     .setFilters("Unheadered SNES ROM|*.sfc")
     .openFile();
     try {
-      new ROM(location,[](int addr)->int{
-	  if(addr > 0xFFFFFF)
-	    return -1;
-	  if((addr < 0xC00000)&&!(addr&0x8000))
-	    return -1;
-	  if((addr < 0x800000)&&(addr >= 0x400000))
-	    return -1;
-	  unsigned char bank=(unsigned char)(addr>>16);
-	  if((bank<0xC0)&&(bank>0x7F))
-	    bank-=0x40;
- 	  std::cout<<std::hex<<addr<<"->"<<std::hex<<((addr&0x7FFF)+(bank<<15))<<" or "<<std::hex<<(addr-0xC0000)<<std::endl;
-	  if(bank<0x80)
-	    return (addr&0x7FFF)+(bank<<15);
-	  else
-	    return addr-0xC00000;
-      });
+      new ROM(location,&resolv);
       //Checking if ROM is a valid Kirby ROM
       char name[]="KIRBY SUPER DELUXE  ";
       //The name is same for all 4 revisions of the game (NTSC J, NTSC J 2, NTSC U, PAL)
@@ -38,6 +39,7 @@ mainWindow::mainWindow() {
       mainwin->loadFile.setEnabled(false);
       mainwin->saveFile.setEnabled(true);
       mainwin->closeFile.setEnabled(true);
+      Room r(0);
     } catch(const char* msg){if(rom) { delete rom; rom=nullptr;} 
       std::cerr<<msg<<std::endl;}
   });
