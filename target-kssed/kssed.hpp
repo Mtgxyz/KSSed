@@ -1,3 +1,6 @@
+#include <libintl.h>
+#include <locale.h>
+#define _(x) gettext((x))
 #include <nall/nall.hpp>
 #include <ruby/ruby.hpp>
 #include <hiro/hiro.hpp>

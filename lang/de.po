@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-02-20 20:22+0100\n"
+"PO-Revision-Date: 2016-02-20 20:24+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ../target-kssed\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: _\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: ksd/room.cpp:24
+msgid "You are trying to load an invalid map"
+msgstr "Du versuchst eine fehlerhafte Karte zu laden"
+
+#: ksd/room.cpp:62
+msgid "Size: "
+msgstr "Größe"
+
+#: ksd/room.cpp:62
+msgid "x"
+msgstr "*"
+
+#: ksd/room.cpp:67
+msgid "Enemy count: "
+msgstr "Gegneranzahl:"
+
+#: kssed.cpp:52
+msgid "Could not create video!"
+msgstr "Konnte Video nicht erstellen!"
+
+#: mainwin/mainwindow.cpp:39
+msgid "File"
+msgstr "Datei"
+
+#: mainwin/mainwindow.cpp:40
+msgid "Open..."
+msgstr "Öffnen..."
+
+#: mainwin/mainwindow.cpp:42
+msgid "Load Kirby Super Star/Kirby's Fun Pak/Kirby Super Deluxe ROM"
+msgstr "Kirby Super Star/Kirby's Fun Pak/Kirby Super Deluxe ROM laden"
+
+#: mainwin/mainwindow.cpp:44
+msgid "Unheadered SNES ROM|*.sfc"
+msgstr "Kopflose SNES ROM|*.sfc"
+
+#: mainwin/mainwindow.cpp:53
+msgid "This is not a valid ROM for this program! (Wanted "
+msgstr "Das ist keine valide ROM für dieses Programm! (Wollte "
+
+#: mainwin/mainwindow.cpp:53
+msgid " got "
+msgstr " erhielt "
+
+#: mainwin/mainwindow.cpp:62
+msgid "Save"
+msgstr "Speichern"
+
+#: mainwin/mainwindow.cpp:63
+msgid "Close"
+msgstr "Schließen"
