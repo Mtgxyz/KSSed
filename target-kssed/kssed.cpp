@@ -58,10 +58,27 @@ Program::Program(lstring args) {
       for(auto x : range(640)) *dp++ = 0xFF00FF00;
     }
     video->unlock();
-    video->refresh();	
+    video->refresh();
   }
 }
 auto Program::main() -> void {
+  if(!room)
+    return;
+  uint32_t* output;
+  unsigned length;
+  if(video->lock(output, length, 32, 24)) {
+    vector<int> *tile = room->draw(1);
+    try{
+      for(int x=0; x<24; x++) {
+        for(int y=0; y<24; y++) {
+          output[x+y*(length>>2)] = (*tile)[x+y*24];
+        }
+      }
+    } catch(...){};
+    delete tile;
+    video->unlock();
+    video->refresh();
+  }
 }
 auto Program::quit() -> void {
   delete video;

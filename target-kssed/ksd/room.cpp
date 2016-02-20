@@ -75,7 +75,7 @@ Room::Room(int roomID): roomID(roomID) {
 auto Room::initTiles() -> void {
 	char buffer[16];
 	string str("vram");
-	itoa(roomID, buffer, 10);
+	sprintf(buffer, "%d", roomID);
 	str.append(buffer);
 	str.append(".smc");
 	static const int BGoff[2]={0x18, 0x1D};
@@ -107,7 +107,7 @@ auto Room::initTiles() -> void {
 auto Room::initPals() -> void {
 	char buffer[16];
 	string str("vram");
-	itoa(roomID, buffer, 10);
+	sprintf(buffer, "%d", roomID);
 	str.append(buffer);
 	str.append(".tpl");
 	static const int BGoff[2]={0x19, 0x1E};
@@ -124,7 +124,7 @@ auto Room::initPals() -> void {
 		}
 	}
 	//By default the CGRAM gets dumped here for debugging
-	
+
 	std::ofstream file(str.data(), std::ios::out|std::ios::binary);
 	if(file.is_open()) {
 		file.write("TPL\x02",4);
@@ -138,38 +138,10 @@ auto Room::initTileset() -> void {
 	if(!addr)
 		return;
 	size_t size = unpack(&((*rom)[addr]),buf); //The tile information is compressed
-	for(int i=0;i<0x3D0;i++) {
-		vector<Tile> tile;
-		for(int q=0;q<8;q++) {
-			Tile subtile;
-			int offset=(q*0x3D0+i)*2;
-			int tileData = buf[offset] + buf[offset+1] << 8;
-			subtile.tile = (tileData&0x3FF);
-			subtile.pal = (tileData>>10)&7;
-			subtile.mirrorX = (tileData>>14)==1;
-			subtile.mirrorY = (tileData>>15)==1;
-			tile.append(subtile);
-		}
-		tiles.append(tile);
-	}
+	for(int i=0;i<size;i+=2) {
+    tilemaps.append((uint16_t)(buf[i]+buf[i+1]<<8));
+  }
 }
 auto Room::draw(int tilenum) -> vector<int> * {
-	vector<int> * pic = new vector<int>;
-	for(int a=0;a<3; a++) {
-		for(int b=0;b<8;b++) {
-			for(int c=0;c<3;c++) {
-				Tile tile=tiles[tilenum][a*3+c];
-				//TODO: fix spaghetti code up.
-				int off=tile.tile*0x20;
-				int flag=3<<(b<<1);
-				int data=((int *)vram)[off>>2];
-				int pix=(data&flag)>>(b<<1);
-				flag<<=16;
-				pix|=(data&flag)>>((b<<1)+14); //Got the pixel color
-				int pcol=((short *)(cgram))[tile.pal*16+pix];
-				RGBA8888 color=RGB555(pcol);
-				pic->append(color);
-			}
-		}
-	}
+  return new vector<int>();
 }

@@ -12,7 +12,7 @@ private:
   int roomID, roomBase;
   int height, width;
   vector<vector<short>> room;
-  vector<vector<Tile>> tiles;
+	vector<uint16_t> tilemaps;
   char* vram, *cgram;
   Room(){};
   auto initTiles() -> void;
@@ -22,3 +22,4 @@ public:
   Room(int roomID);
   auto draw(int tileNumber) -> vector<int> *;
 };
+extern Room* room;

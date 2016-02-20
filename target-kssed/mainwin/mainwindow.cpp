@@ -31,8 +31,9 @@ int resolv(int addr) {
   if(bank<0x80)
     return (addr&0x7FFF)+(bank<<15);
   else
-    return addr-0xC00000;  
+    return addr-0xC00000;
 }
+Room* room=nullptr;
 mainWindow::mainWindow() {
   mainwin=this;
   fileMenu.setText("File");
@@ -54,8 +55,8 @@ mainWindow::mainWindow() {
       mainwin->loadFile.setEnabled(false);
       mainwin->saveFile.setEnabled(true);
       mainwin->closeFile.setEnabled(true);
-	  Room r(0);
-    } catch(const char* msg){if(rom) { delete rom; rom=nullptr;} 
+	    room=new Room(0);
+    } catch(const char* msg){if(rom) { delete rom; rom=nullptr;}
       std::cerr<<msg<<std::endl;}
   });
   saveFile.setText("Save").onActivate([] {rom->save();});

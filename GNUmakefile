@@ -16,13 +16,13 @@
 include nall/GNUmakefile
 target = kssed
 # compiler
-flags += -I. -I/usr/local/include  -fno-wrapv -Werror -O3
+flags += -I. -I/usr/local/include  -fno-wrapv -Werror -g3 -pg # -O3
 objects := libco
 
 # profile-guided optimization mode
 # pgo := instrument
 # pgo := optimize
-link += -L/usr/local/lib -lexhal -Wl,-O3
+link += -L/usr/local/lib -lexhal #-Wl,-O3
 ifeq ($(pgo),instrument)
   flags += -fprofile-generate
   link += -lgcov
