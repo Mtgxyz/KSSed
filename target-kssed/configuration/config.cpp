@@ -20,6 +20,7 @@ ConfigurationManager::ConfigurationManager() {
   config=this;
   video.append(video.driver, "Driver");
   append(video, "Video");
+  load(locate({configpath(), "kssed/"}, "settings.bml"));
   if(!video.driver) video.driver = ruby::Video::safestDriver();
   save(locate({configpath(), "kssed/"}, "settings.bml"));
 }

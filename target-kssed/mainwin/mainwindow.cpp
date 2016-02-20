@@ -28,7 +28,6 @@ int resolv(int addr) {
   unsigned char bank=(unsigned char)(addr>>16);
   if((bank<0xC0)&&(bank>0x7F))
     bank-=0x40;
-  std::cout<<std::hex<<addr<<"->"<<std::hex<<((addr&0x7FFF)+(bank<<15))<<" or "<<std::hex<<(addr-0xC0000)<<std::endl;
   if(bank<0x80)
     return (addr&0x7FFF)+(bank<<15);
   else
@@ -55,7 +54,7 @@ mainWindow::mainWindow() {
       mainwin->loadFile.setEnabled(false);
       mainwin->saveFile.setEnabled(true);
       mainwin->closeFile.setEnabled(true);
-      Room r(0);
+	  Room r(0);
     } catch(const char* msg){if(rom) { delete rom; rom=nullptr;} 
       std::cerr<<msg<<std::endl;}
   });

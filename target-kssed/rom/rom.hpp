@@ -13,6 +13,12 @@ public:
     this->addrResolv=addrResolv;
   }
   auto operator[](int addr)->unsigned char &;
+  auto getWord(int addr) -> unsigned short;
+  auto get24bit(int addr) -> unsigned int;
+  auto getInt(int addr) -> unsigned int;
+  auto setWord(int addr,unsigned short val) -> void;
+  auto set24bit(int addr, unsigned int val) -> void;
+  auto setInt(int addr, unsigned int val) -> void;
   ~ROM();
 };
 extern ROM* rom;

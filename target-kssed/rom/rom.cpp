@@ -46,6 +46,36 @@ auto ROM::operator[](int addr)->unsigned char & {
   else
     return rom[offset];
 }
+auto ROM::getWord(int addr) -> unsigned short  {
+	//return (unsigned short)((*this)[addr]<<8+(*this)[addr+1]);
+	return (unsigned short)(((*this)[addr+1]<<8)+(*this)[addr]);
+}
+auto ROM::get24bit(int addr) -> unsigned int  {
+	//return (unsigned int)(getWord(addr)<<8+(*this)[addr+2]);
+	return (unsigned int)((getWord(addr+1)<<8)+(*this)[addr]);
+}
+auto ROM::getInt(int addr) -> unsigned int {
+	//return (unsigned int)(getWord(addr)<<16+getWord(addr+2));
+	return (unsigned int)((getWord(addr+2)<<16)+getWord(addr));
+}
+auto ROM::setWord(int addr,unsigned short val) -> void {
+	/*(*this)[addr]=(unsigned char)(val>>8);
+	(*this)[addr+1]=(unsigned char)val;*/
+	(*this)[addr+1]=(unsigned char)(val>>8);
+	(*this)[addr]=(unsigned char)val;
+}
+auto ROM::set24bit(int addr, unsigned int val) -> void {
+	/*setWord(addr, (unsigned short)(val>>8));
+	(*this)[addr+2]=(unsigned char)val;*/
+	setWord(addr+1, (unsigned short)(val>>8));
+	(*this)[addr]=(unsigned char)val;
+}
+auto ROM::setInt(int addr, unsigned int val) -> void {
+	/*setWord(addr, (unsigned short)(val>>16));
+	setWord(addr+2, (unsigned short)val);*/
+	setWord(addr+2, (unsigned short)(val>>16));
+	setWord(addr, (unsigned short)val);
+}
 RGBA8888::RGBA8888(char red, char green, char blue, char alpha): red(red), green(green), blue(blue), alpha(alpha) {}
 RGBA8888::RGBA8888(int color) {
   alpha=(char)(color>>24);
