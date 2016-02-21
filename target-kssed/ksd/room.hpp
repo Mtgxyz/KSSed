@@ -13,7 +13,7 @@ private:
   int height, width;
   vector<vector<short>> room;
 	vector<uint16_t> tilemaps;
-  char* vram, *cgram;
+  //char* vram, *cgram;
   Room(){};
   auto initTiles() -> void;
   auto initPals() -> void;

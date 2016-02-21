@@ -66,11 +66,24 @@ Room::Room(int roomID): roomID(roomID) {
   numenemies/=6; //Enemie data is 6 bytes long
   std::cout << _("Enemy count: ") << numenemies << std::endl;
   //Put the room data into vector
-  vram=(char*)calloc(65536,1);
-  cgram=(char*)calloc(512,1);
+  /*vram=(char*)calloc(65536,1);
+  cgram=(char*)calloc(512,1);*/
+  delete vram;
+  //new VRAM(width,height);
+  new VRAM(27,27);
   initTiles();
   initPals();
   initTileset();
+  /*for(int x=0;x<width;x++) {
+    for(int y=0;y<height;y++) {
+      vram->setTile(x,y,buf[x+y*width]);
+    }
+  }*/
+  for(int x=0;x<width;x++) {
+    for(int y=0;y<height;y++) {
+      vram->setTile(x,y,x+y*width);
+    }
+  }
 }
 auto Room::initTiles() -> void {
 	char buffer[16];
@@ -93,14 +106,15 @@ auto Room::initTiles() -> void {
 		src=rom->get24bit(addr+3)-0x7E2000;
 		dst=rom->getWord(addr+6)*2;
 		//Execute DMA
-		if(src>=0 && src+sz<0x10000 && dst+sz < 0x10000)
-			for(int i=0;i<sz;i++)
-				vram[dst+i]=buf[src+i];
+    vector<uint8_t> dmabytes;
+    for(auto x : range(sz))
+      dmabytes.append(buf[src+x]);
+		vram->dma(dmabytes, dst);
 	}
 	//By default the VRAM gets dumped here for debugging
 	std::ofstream file(str.data(), std::ios::out|std::ios::binary);
 	if(file.is_open()) {
-		file.write(vram,65536);
+		//file.write(vram,65536);
 		file.close();
 	}
 }
@@ -119,8 +133,8 @@ auto Room::initPals() -> void {
 		count=(*rom)[addr++];
 		off=(*rom)[addr++];
 		for(;count;count--,off++) {
-			cgram[(off*2)%512]=(*rom)[addr++];
-			cgram[(off*2+1)%512]=(*rom)[addr++];
+      (*cgram)[off%256]=rom->getWord(addr++);
+			addr++;
 		}
 	}
 	//By default the CGRAM gets dumped here for debugging
@@ -128,7 +142,7 @@ auto Room::initPals() -> void {
 	std::ofstream file(str.data(), std::ios::out|std::ios::binary);
 	if(file.is_open()) {
 		file.write("TPL\x02",4);
-		file.write(cgram,512);
+		//file.write(cgram,512);
 		file.close();
 	}
 }
@@ -138,9 +152,10 @@ auto Room::initTileset() -> void {
 	if(!addr)
 		return;
 	size_t size = unpack(&((*rom)[addr]),buf); //The tile information is compressed
-	for(int i=0;i<size;i+=2) {
-    tilemaps.append((uint16_t)(buf[i]+buf[i+1]<<8));
-  }
+  for(int tile=0;tile<0x2D0;tile++)
+    for(int subtile=0;subtile<9;subtile++)
+      vram->addTile(tile,subtile,(short)(buf[(tile*9+subtile)*2]+buf[(tile*9+subtile)*2]<<8));
+
 }
 auto Room::draw(int tilenum) -> vector<int> * {
   return new vector<int>();
