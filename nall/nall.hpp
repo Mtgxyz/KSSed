@@ -1,3 +1,5 @@
+#pragma once
+
 /* nall
  * author: byuu
  * license: ISC
@@ -5,9 +7,6 @@
  * nall is a header library that provides both fundamental and useful classes
  * its goals are portability, consistency, minimalism and reusability
  */
-
-#ifndef NALL_HPP
-#define NALL_HPP
 
 //include the most common nall headers with one statement
 //does not include the most obscure components with high cost and low usage
@@ -32,7 +31,6 @@
 #include <nall/image.hpp>
 #include <nall/interpolation.hpp>
 #include <nall/intrinsics.hpp>
-#include <nall/invoke.hpp>
 #include <nall/map.hpp>
 #include <nall/matrix.hpp>
 #include <nall/maybe.hpp>
@@ -41,6 +39,7 @@
 #include <nall/property.hpp>
 #include <nall/random.hpp>
 #include <nall/range.hpp>
+#include <nall/run.hpp>
 #include <nall/serializer.hpp>
 #include <nall/set.hpp>
 #include <nall/shared-pointer.hpp>
@@ -73,6 +72,4 @@
 
 #if defined(API_POSIX)
   #include <nall/serial.hpp>
-#endif
-
 #endif
