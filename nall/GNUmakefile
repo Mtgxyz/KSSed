@@ -51,7 +51,7 @@ ifeq ($(compiler),)
   else ifeq ($(platform),macosx)
     compiler := clang++
   else ifeq ($(platform),linux)
-    compiler := g++-4.9
+    compiler := g++
   else ifeq ($(platform),bsd)
     compiler := g++49
   else
@@ -94,7 +94,7 @@ endif
 ifeq ($(threaded),true)
   ifneq ($(filter $(platform),linux bsd),)
     flags += -pthread
-    link += -lrt
+    link += -pthread -lrt
   endif
 endif
 
