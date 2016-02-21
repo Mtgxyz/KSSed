@@ -1,0 +1,68 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-02-21 13:10+0100\n"
+"PO-Revision-Date: 2016-02-21 13:19+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ../target-kssed\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-KeywordsList: _\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: ksd/room.cpp:24
+msgid "You are trying to load an invalid map"
+msgstr ""
+
+#: ksd/room.cpp:62
+msgid "Size: "
+msgstr ""
+
+#: ksd/room.cpp:62
+msgid "x"
+msgstr ""
+
+#: ksd/room.cpp:67
+msgid "Enemy count: "
+msgstr ""
+
+#: kssed.cpp:52
+msgid "Could not create video!"
+msgstr ""
+
+#: mainwin/mainwindow.cpp:39
+msgid "File"
+msgstr "ファイル"
+
+#: mainwin/mainwindow.cpp:40
+msgid "Open..."
+msgstr "開く…"
+
+#: mainwin/mainwindow.cpp:42
+msgid "Load Kirby Super Star/Kirby's Fun Pak/Kirby Super Deluxe ROM"
+msgstr "星のカービィスーパーデラックスのROMを開きます。"
+
+#: mainwin/mainwindow.cpp:44
+msgid "Unheadered SNES ROM|*.sfc"
+msgstr "ヘッダレススーパーファミコンROM|*.sfc"
+
+#: mainwin/mainwindow.cpp:53
+msgid "This is not a valid ROM for this program! (Wanted "
+msgstr ""
+
+#: mainwin/mainwindow.cpp:53
+msgid " got "
+msgstr ""
+
+#: mainwin/mainwindow.cpp:62
+msgid "Save"
+msgstr "保存"
+
+#: mainwin/mainwindow.cpp:63
+msgid "Close"
+msgstr "閉じる"
