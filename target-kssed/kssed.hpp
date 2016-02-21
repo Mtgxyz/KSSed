@@ -7,6 +7,7 @@ using namespace hiro;
 #include "configuration/config.hpp"
 #include "mainwin/mainwindow.hpp"
 #include "rom/rom.hpp"
+#include "rom/ppu.hpp"
 #include "ksd/room.hpp"
 extern Video* video;
 extern Audio* audio;

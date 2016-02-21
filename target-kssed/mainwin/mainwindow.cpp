@@ -69,10 +69,10 @@ mainWindow::mainWindow() {
   });
   mainwin->saveFile.setEnabled(false);
   mainwin->closeFile.setEnabled(false);
-  setGeometry({32,32,640,480});
+  setGeometry({32,32,1024,786});
   setResizable(false);
   setBackgroundColor({0,0,0});
-  viewport.setGeometry({0,0,640,480});
+  viewport.setGeometry({0,0,1024,786});
   setCentered();
   onClose([&] { program->quit(); });
 }

@@ -14,7 +14,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 name := kssed
-ui_objects := ui-kssed ui-config ui-mainwin ui-rom ui-room
+ui_objects := ui-kssed ui-config ui-mainwin ui-rom ui-room ui-ppu
 ui_objects += ruby hiro
 ui_objects += $(if $(call streq,$(platform),windows),ui-resource)
 ifeq ($(platform),windows)
@@ -49,11 +49,12 @@ obj/ui-config.o: $(ui)/configuration/config.cpp $(call rwildcard,$(ui)/)
 obj/ui-mainwin.o: $(ui)/mainwin/mainwindow.cpp $(call rwildcard,$(ui)/)
 obj/ui-rom.o: $(ui)/rom/rom.cpp $(call rwildcard,$(ui)/)
 obj/ui-room.o: $(ui)/ksd/room.cpp $(call rwildcard,$(ui)/)
+obj/ui-ppu.o: $(ui)/rom/ppu.cpp $(call rwildcard,$(ui)/)
 obj/ui-resource.o:
 	windres data/resource.rc obj/ui-resource.o
 build: $(objects)
 	$(strip $(compiler) -o out/$(name) $(objects) $(link))
-	
+
 install:
 ifeq ($(shell id -un),root)
 	$(error "make install should not be run as root")

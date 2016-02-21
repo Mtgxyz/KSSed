@@ -52,30 +52,32 @@ Program::Program(lstring args) {
   }
   uint32_t* output;
   unsigned length;
-  if(video->lock(output, length, 640, 480)) {
-    for(auto y : range(480)) {
+  if(video->lock(output, length, 1024, 786)) {
+    for(auto y : range(786)) {
       uint32_t* dp = output + y * (length >> 2);
-      for(auto x : range(640)) *dp++ = 0xFF00FF00;
+      for(auto x : range(1024)) *dp++ = 0xFF00FF00;
     }
     video->unlock();
     video->refresh();
   }
+  new CGRAM();
+  new VRAM(1,1);
 }
 auto Program::main() -> void {
   if(!room)
     return;
   uint32_t* output;
   unsigned length;
-  if(video->lock(output, length, 32, 24)) {
-    vector<int> *tile = room->draw(1);
+  vector<vector<RGBA8888>> *screen = vram->render();
+  if(video->lock(output, length, screen->size(), (*screen)[0].size())) {
     try{
-      for(int x=0; x<24; x++) {
-        for(int y=0; y<24; y++) {
-          output[x+y*(length>>2)] = (*tile)[x+y*24];
+      for(int x=0; x<screen->size(); x++) {
+        for(int y=0; y<(*screen)[x].size(); y++) {
+          output[x+y*(length>>2)] = (int)((*screen)[x][y]);
         }
       }
     } catch(...){};
-    delete tile;
+    delete screen;
     video->unlock();
     video->refresh();
   }
