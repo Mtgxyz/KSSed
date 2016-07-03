@@ -1,0 +1,9 @@
+[submodule "nall"]
+	path = nall
+	url = https://github.com/Mtgxyz/nall
+[submodule "ruby"]
+	path = ruby
+	url = https://github.com/Mtgxyz/ruby
+[submodule "hiro"]
+	path = hiro
+	url = https://github.com/Mtgxyz/hiro
