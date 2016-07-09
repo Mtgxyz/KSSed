@@ -55,7 +55,7 @@ mainWindow::mainWindow() {
       mainwin->loadFile.setEnabled(false);
       mainwin->saveFile.setEnabled(true);
       mainwin->closeFile.setEnabled(true);
-	    room=new Room(0);
+	    room=new Room(1);
     } catch(const char* msg){if(rom) { delete rom; rom=nullptr;}
       std::cerr<<msg<<std::endl;}
   });

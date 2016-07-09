@@ -23,7 +23,7 @@ private:
       auto render(int pal, int x, int y, vector<vector<RGBA8888>> &framebuffer) -> void;
     }__attribute__((packed)) cha;
     uint8_t input[32];
-  };
+  }__attribute__((packed));
   union mapentry {
     struct map {
       uint16_t chr : 10;

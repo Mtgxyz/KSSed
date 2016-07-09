@@ -43,6 +43,7 @@ auto VRAM::character::chara::render(int pal, int bx, int by, vector<vector<RGBA8
       color|=((bp2&bit)==bit)<<2;
       color|=((bp3&bit)==bit)<<3;
       framebuffer[bx*8+x][by*8+y]=palette[color];
+      
     }
   }
 }
