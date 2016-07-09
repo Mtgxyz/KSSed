@@ -81,7 +81,7 @@ Room::Room(int roomID): roomID(roomID) {
   }*/
   for(int x=0;x<width;x++) {
     for(int y=0;y<height;y++) {
-      vram->setTile(x,y,x+y*width);
+      vram->setTile(x,y,room[x][y]);
     }
   }
 }
