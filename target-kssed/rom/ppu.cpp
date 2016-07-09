@@ -95,9 +95,10 @@ auto VRAM::setTile(int x, int y, uint16_t tile) -> void {
 }
 auto VRAM::render() -> vector<vector<RGBA8888>> * {
   vector<vector<RGBA8888>> fb;
+
   for(int x=0;x<tilemap.size()*8;x++) {
     vector<RGBA8888> tmp;
-    for(int y=0;y<tilemap[x].size()*8;y++)
+    for(int y=0;y<tilemap[x/8].size()*8;y++)
       tmp.append(0);
     fb.append(tmp);
   }
