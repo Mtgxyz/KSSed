@@ -55,9 +55,9 @@ Room::Room(int roomID): roomID(roomID) {
   //TODO Check if any room has data in this section and find out
   currAddr+=rom->getWord(currAddr-2);
   //Section 7: Main room data. Contains room size, the actual room and the enemies in this room (Last two compressed)
-  height=rom->getWord(currAddr);
-  currAddr+=2;
   width=rom->getWord(currAddr);
+  currAddr+=2;
+  height=rom->getWord(currAddr);
   currAddr+=2;
   std::cout << std::dec << "Size: " << height << "x" << width << std::endl;
   unsigned char buf[65536]; //64 KiB is the absolute maximum the compression method can address (The actual maximum size in this game is about 56 KiB, if not less)
