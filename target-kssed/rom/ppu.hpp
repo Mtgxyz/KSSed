@@ -20,7 +20,7 @@ private:
       uint64_t bp1;
       uint64_t bp2;
       uint64_t bp3;
-      auto render(int pal) -> vector<vector<RGBA8888>> *;
+      auto render(int pal, int x, int y, vector<vector<RGBA8888>> &framebuffer) -> void;
     }__attribute__((packed)) cha;
     uint8_t input[32];
   };

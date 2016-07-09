@@ -29,26 +29,22 @@ auto CGRAM::getPalette(int palNum) -> vector<RGBA8888> * {
   }
   return pal;
 }
-auto VRAM::character::chara::render(int pal) -> vector<vector<RGBA8888>> * {
+auto render(int pal, int bx, int by, vector<vector<RGBA8888>> &framebuffer) -> void {
   if(!cgram)
     return nullptr;
-  vector<vector<RGBA8888>>* tile=new vector<vector<RGBA8888>>();
   vector<RGBA8888> *tmp=cgram->getPalette(pal);
   vector<RGBA8888> palette=*tmp;
   delete tmp;
   for(int x=0;x<8;x++) {
-    vector<RGBA8888> tmp;
     for(int y=0;y<8;y++) {
       uint64_t bit=1<<(x+y*8);
       uint8_t color=(bp0&bit)==bit;
       color|=((bp1&bit)==bit)<<1;
       color|=((bp2&bit)==bit)<<2;
       color|=((bp3&bit)==bit)<<3;
-      tmp.append(palette[color]);
+      framebuffer[bx*8+x][by*8+y]=palette[color];
     }
-    tile->append(tmp);
   }
-  return tile;
 }
 
 VRAM::VRAM(int width, int height) {
@@ -98,31 +94,19 @@ auto VRAM::setTile(int x, int y, uint16_t tile) -> void {
   }
 }
 auto VRAM::render() -> vector<vector<RGBA8888>> * {
-  vector<vector<RGBA8888>>* output = new vector<vector<RGBA8888>>;
-  vector<vector<vector<vector<RGBA8888>>*>> renderedTiles;
+  vector<vector<RGBA8888>> fb;
+  for(int x=0;x<tilemap.size()*8;x++) {
+    vector<RGBA8888> tmp;
+    for(int y=0;y<tilemap[x].size()*8;y++)
+      tmp.append(0);
+    fb.append(tmp);
+  }
   for(int x=0;x<tilemap.size();x++) {
-    vector<vector<vector<RGBA8888>>*> tmp;
-    for (int y=0;y<tilemap[x].size();y++) {
-      mapentry entr = tilemap[x][y];
-      tmp.append(vram[entr.entry&0x3FF].cha.render((entr.entry/1024)&0x7));
-    }
-    renderedTiles.append(tmp);
-  }
-  for(int tx=0;tx<renderedTiles.size();tx++) {
-    for(int x=0;x<8;x++) {
-      vector<RGBA8888> tmp;
-      for(int ty=0; ty<renderedTiles[tx].size();ty++) {
-        for(int y=0; y<8; y++) {
-          tmp.append((*(renderedTiles[tx][ty]))[x][y]);
-        }
-      }
-      output->append(tmp);
+    for(int y=0;y<tilemap[x].size();y++) {
+      vram[tilemap[x][y].chr].render(tilemap[x][y].pal,x,y,fb);
     }
   }
-  for(int x=0;x<renderedTiles.size();x++)
-    for(int y=0;y<renderedTiles[x].size();y++) {
-      delete renderedTiles[x][y];
-    }
-
-  return output;
+  vector<vector<RGBA8888>> *out=new vector<vector<RGBA8888>>();
+  *out=fb;
+  return out;
 }
