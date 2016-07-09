@@ -76,26 +76,26 @@ auto ROM::setInt(int addr, unsigned int val) -> void {
 	setWord(addr+2, (unsigned short)(val>>16));
 	setWord(addr, (unsigned short)val);
 }
-RGBA8888::RGBA8888(char red, char green, char blue, char alpha): red(red), green(green), blue(blue), alpha(alpha) {}
-RGBA8888::RGBA8888(int color) {
-  alpha=(char)(color>>24);
-  red=(char)(color>>16);
-  green=(char)(color>>8);
-  blue=(char)color;
+RGBA8888::RGBA8888(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha): red(red), green(green), blue(blue), alpha(alpha) {}
+RGBA8888::RGBA8888(unsigned int color) {
+  alpha=(unsigned char)(color>>24);
+  red=(unsigned char)(color>>16);
+  green=(unsigned char)(color>>8);
+  blue=(unsigned char)color;
 }
-RGBA8888::operator int() {
+RGBA8888::operator unsigned int() {
   return (alpha<<24)+(red<<16)+(green<<8)+blue;
 }
 RGBA8888::operator struct RGB555() {
-  return RGB555((char)(red>>3),(char)(green>>3),(char)(blue>>3));
+  return RGB555((unsigned char)(red>>3),(unsigned char)(green>>3),(unsigned char)(blue>>3));
 }
-RGB555::RGB555(char red, char green, char blue): red(red), green(green), blue(blue) {}
-RGB555::RGB555(short color) {
-  red=(char)(color & 0x1F);
-  green=(char)((color>>5)&0x1F);
-  blue=(char)((color>>10)&0x1F);
+RGB555::RGB555(unsigned char red, unsigned char green, unsigned char blue): red(red), green(green), blue(blue) {}
+RGB555::RGB555(unsigned color) {
+  red=(unsigned char)(color & 0x1F);
+  green=(unsigned char)((color>>5)&0x1F);
+  blue=(unsigned char)((color>>10)&0x1F);
 }
-RGB555::operator short() {
+RGB555::operator unsigned short() {
   return red+(green<<5)+(blue<<10);
 }
 RGB555::operator struct RGBA8888() {
