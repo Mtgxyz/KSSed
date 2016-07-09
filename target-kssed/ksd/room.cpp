@@ -70,7 +70,7 @@ Room::Room(int roomID): roomID(roomID) {
   cgram=(char*)calloc(512,1);*/
   delete vram;
   //new VRAM(width,height);
-  new VRAM(27,27);
+  new VRAM(width,height);
   initTiles();
   initPals();
   initTileset();
