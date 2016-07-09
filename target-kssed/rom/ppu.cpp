@@ -33,7 +33,9 @@ auto VRAM::character::chara::render(int pal) -> vector<vector<RGBA8888>> * {
   if(!cgram)
     return nullptr;
   vector<vector<RGBA8888>>* tile=new vector<vector<RGBA8888>>();
-  vector<RGBA8888> palette=cgram->getPalette(pal);
+  vector<RGBA8888> *tmp=cgram->getPalette(pal);
+  vector<RGBA8888> palette=*tmp;
+  delete tmp;
   for(int x=0;x<8;x++) {
     vector<RGBA8888> tmp;
     for(int y=0;y<8;y++) {
