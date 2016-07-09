@@ -80,9 +80,9 @@ Room::Room(int roomID): roomID(roomID) {
     }
   }*/
   for(int x=0;x<width;x++) {
-    vector<uint16_t> tmp;
+    vector<short> tmp;
     for(int y=0;y<height;y++) {
-      tmp.append(((uint16_t)buf[x+y*width])<<8+((uint16_t)buf[x+y*width+1]));
+      tmp.append(((short)buf[x+y*width])<<8+((short)buf[x+y*width+1]));
     }
     room.append(tmp);
   }
