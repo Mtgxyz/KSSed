@@ -82,7 +82,7 @@ Room::Room(int roomID): roomID(roomID) {
   for(int x=0;x<width;x++) {
     vector<short> tmp;
     for(int y=0;y<height;y++) {
-      tmp.append(((short)buf[x+y*width])<<8+((short)buf[x+y*width+1]));
+      tmp.append(((short)buf[x+y*width+height*width])<<8+((short)buf[x+y*width]));
     }
     room.append(tmp);
   }
