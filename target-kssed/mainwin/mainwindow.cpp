@@ -36,12 +36,12 @@ int resolv(int addr) {
 Room* room=nullptr;
 mainWindow::mainWindow() {
   mainwin=this;
-  fileMenu.setText(_("File"));
-  loadFile.setText(_("Open...")).onActivate([=] {
+  fileMenu.setText("File");
+  loadFile.setText("Open...").onActivate([=] {
     auto location = BrowserDialog()
-    .setTitle(_("Load Kirby Super Star/Kirby's Fun Pak/Kirby Super Deluxe ROM"))
+    .setTitle("Load Kirby Super Star/Kirby's Fun Pak/Kirby Super Deluxe ROM")
     .setPath("/")
-    .setFilters(_("Unheadered SNES ROM|*.sfc"))
+    .setFilters("Unheadered SNES ROM|*.sfc")
     .openFile();
     try {
       new ROM(location,&resolv);
@@ -50,7 +50,7 @@ mainWindow::mainWindow() {
       //The name is same for all 4 revisions of the game (NTSC J, NTSC J 2, NTSC U, PAL)
       for(int i=0xFFC0;i<0xFFD4;i++) {
 	if((char)((*rom)[i])!=name[i-0xFFC0])
-	  throw (string{_("This is not a valid ROM for this program! (Wanted "),name[i-0xFFC0],_(" got "), (char)((*rom)[i]),"!"}).data();
+	  throw (string{"This is not a valid ROM for this program! (Wanted ",name[i-0xFFC0]," got ", (char)((*rom)[i]),"!"}).data();
       }
       mainwin->loadFile.setEnabled(false);
       mainwin->saveFile.setEnabled(true);
@@ -59,8 +59,8 @@ mainWindow::mainWindow() {
     } catch(const char* msg){if(rom) { delete rom; rom=nullptr;}
       std::cerr<<msg<<std::endl;}
   });
-  saveFile.setText(_("Save")).onActivate([] {rom->save();});
-  closeFile.setText(_("Close")).onActivate([] {
+  saveFile.setText("Save").onActivate([] {rom->save();});
+  closeFile.setText("Close").onActivate([] {
     delete rom;
     rom=nullptr;
     mainwin->loadFile.setEnabled(true);

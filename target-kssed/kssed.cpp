@@ -34,9 +34,6 @@ auto nall::main(lstring args) -> void {
   Application::run();
 }
 Program::Program(lstring args) {
-  setlocale(LC_ALL, "");
-  bindtextdomain("kssed", ".");
-  textdomain("kssed");
   program=this;
   directory::create({Path::config(), "kssed/"});
   Application::onMain({&Program::main, this});
@@ -49,7 +46,7 @@ Program::Program(lstring args) {
   video->set(Video::Handle, mainwin->viewport.handle());
   std::clog<<config->video.driver.data()<<std::endl;
   if(!video->init()) {
-    std::cerr<<_("Could not create video!")<<std::endl;
+    std::cerr<<"Could not create video!"<<std::endl;
     delete video;
     video=Video::create("None");
   }

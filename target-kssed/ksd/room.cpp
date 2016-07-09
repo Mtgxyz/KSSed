@@ -21,7 +21,7 @@
 #include <fstream>
 
 Room::Room(int roomID): roomID(roomID) {
-  if(roomID<0 || roomID>=MAX_ROOM) throw _("You are trying to load an invalid map");
+  if(roomID<0 || roomID>=MAX_ROOM) throw "You are trying to load an invalid map";
   int currAddr,addr;
   //Finding the beginning of the room header
   addr=rom->getWord(0xFF000C); //$FF is a bank consisting out of a huge table. $FF:$0002 points to the beginning of the level pointer table
@@ -59,12 +59,12 @@ Room::Room(int roomID): roomID(roomID) {
   currAddr+=2;
   width=rom->getWord(currAddr);
   currAddr+=2;
-  std::cout << std::dec << _("Size: ") << height << _("x") << width << std::endl;
+  std::cout << std::dec << "Size: " << height << "x" << width << std::endl;
   unsigned char buf[65536]; //64 KiB is the absolute maximum the compression method can address (The actual maximum size in this game is about 56 KiB, if not less)
   size_t numenemies=unpack(&((*rom)[currAddr]),buf); // This routine is part of libexhal
   numenemies%=height*width*2; //Each block takes 2 bytes
   numenemies/=6; //Enemie data is 6 bytes long
-  std::cout << _("Enemy count: ") << numenemies << std::endl;
+  std::cout << "Enemy count: " << numenemies << std::endl;
   //Put the room data into vector
   /*vram=(char*)calloc(65536,1);
   cgram=(char*)calloc(512,1);*/
