@@ -24,8 +24,8 @@ Program* program=nullptr;
 //if file already exists in the same path as the binary; use it (portable mode)
 //if not, use default requested path (*nix/user mode)
 auto locate(string pathname, string filename) -> string {
-  string location{programpath(), filename};
-  if(file_system_object::exists(location)) return location;
+  string location{Path::program(), filename};
+  if(inode::exists(location)) return location;
   return {pathname, filename};
 }
 auto nall::main(lstring args) -> void {
@@ -38,7 +38,7 @@ Program::Program(lstring args) {
   bindtextdomain("kssed", ".");
   textdomain("kssed");
   program=this;
-  directory::create({configpath(), "kssed/"});
+  directory::create({Path::config(), "kssed/"});
   Application::onMain({&Program::main, this});
   new ConfigurationManager;
   new mainWindow;

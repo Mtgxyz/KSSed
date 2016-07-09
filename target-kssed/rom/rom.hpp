@@ -23,21 +23,21 @@ public:
 };
 extern ROM* rom;
 struct RGBA8888 {
-  char red;
-  char green;
-  char blue;
-  char alpha;
-  RGBA8888(char red, char green, char blue, char alpha);
-  RGBA8888(int color);
-  operator int();
+  unsigned char red;
+  unsigned char green;
+  unsigned char blue;
+  unsigned char alpha;
+  RGBA8888(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
+  RGBA8888(unsigned int color);
+  operator unsigned int();
   operator struct RGB555();
 };
 struct RGB555 {
-  char red;
-  char green;
-  char blue;
-  RGB555(char red, char green, char blue);
-  RGB555(short color);
-  operator short();
+  unsigned char red;
+  unsigned char green;
+  unsigned char blue;
+  RGB555(unsigned char red, unsigned char green, unsigned char blue);
+  RGB555(unsigned short color);
+  operator unsigned short();
   operator struct RGBA8888();
 };
