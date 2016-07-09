@@ -90,7 +90,7 @@ RGBA8888::operator struct RGB555() {
   return RGB555((unsigned char)(red>>3),(unsigned char)(green>>3),(unsigned char)(blue>>3));
 }
 RGB555::RGB555(unsigned char red, unsigned char green, unsigned char blue): red(red), green(green), blue(blue) {}
-RGB555::RGB555(unsigned color) {
+RGB555::RGB555(unsigned short color) {
   red=(unsigned char)(color & 0x1F);
   green=(unsigned char)((color>>5)&0x1F);
   blue=(unsigned char)((color>>10)&0x1F);
