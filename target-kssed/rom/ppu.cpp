@@ -4,7 +4,7 @@ CGRAM *cgram=nullptr;
 VRAM *vram=nullptr;
 CGRAM::CGRAM() {
   for(int i=0;i<256; i++)
-    colors.append(RGB555(0,0,0));
+    colors.append(RGBA8888(0,0,0,0));
   cgram=this;
 }
 CGRAM::CGRAM(vector<RGB555> colors): CGRAM() {
@@ -19,11 +19,11 @@ CGRAM::CGRAM(vector<uint8_t> colors): CGRAM() {
     this->colors.append(RGB555((short)(colors[i*2]+colors[i*2+1]<<8)));
   }
 }
-auto CGRAM::operator[](int color) -> RGB555 & {
+auto CGRAM::operator[](int color) -> RGBA8888 & {
   return colors[color];
 }
-auto CGRAM::getPalette(int palNum) -> vector<RGB555> * {
-  vector<RGB555> * pal=new vector<RGB555>();
+auto CGRAM::getPalette(int palNum) -> vector<RGBA8888> * {
+  vector<RGBA8888> * pal=new vector<RGBA8888>();
   for(int i=palNum*16;i<palNum*16+16;i++) {
     pal->append(colors[i]);
   }
@@ -33,10 +33,7 @@ auto VRAM::character::chara::render(int pal) -> vector<vector<RGBA8888>> * {
   if(!cgram)
     return nullptr;
   vector<vector<RGBA8888>>* tile=new vector<vector<RGBA8888>>();
-  vector<RGB555> *oldpal=cgram->getPalette(pal);
-  vector<RGBA8888> palette;
-  for(int i=0;i<oldpal->size();i++)
-    palette.append((*oldpal)[i]);
+  vector<RGBA8888> palette=cgram->getPalette(pal);
   for(int x=0;x<8;x++) {
     vector<RGBA8888> tmp;
     for(int y=0;y<8;y++) {

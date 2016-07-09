@@ -2,13 +2,13 @@
 #define _PPU_HPP
 class CGRAM {
 private:
-  vector<RGB555> colors;
+  vector<RGBA8888> colors;
 public:
   CGRAM();
   CGRAM(vector<RGB555>);
   CGRAM(vector<uint8_t>);
-  auto operator[](int color) -> RGB555 &;
-  auto getPalette(int palNum) -> vector<RGB555> *;
+  auto operator[](int color) -> RGBA8888 &;
+  auto getPalette(int palNum) -> vector<RGBA8888> *;
 };
 extern CGRAM* cgram;
 //For rendering graphics up to 512*512 tiles 24x24 tiles (Tilemap of up to 1536x1536)
