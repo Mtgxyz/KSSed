@@ -31,7 +31,7 @@ auto CGRAM::getPalette(int palNum) -> vector<RGBA8888> * {
 }
 auto VRAM::character::chara::render(int pal, int bx, int by, vector<vector<RGBA8888>> &framebuffer) -> void {
   if(!cgram)
-    return nullptr;
+    return;
   vector<RGBA8888> *tmp=cgram->getPalette(pal);
   vector<RGBA8888> palette=*tmp;
   delete tmp;
@@ -103,7 +103,7 @@ auto VRAM::render() -> vector<vector<RGBA8888>> * {
   }
   for(int x=0;x<tilemap.size();x++) {
     for(int y=0;y<tilemap[x].size();y++) {
-      vram[tilemap[x][y].chr].cha.render(tilemap[x][y].map.pal,x,y,fb);
+      vram[tilemap[x][y].entr.chr].cha.render(tilemap[x][y].entr.pal,x,y,fb);
     }
   }
   vector<vector<RGBA8888>> *out=new vector<vector<RGBA8888>>();
