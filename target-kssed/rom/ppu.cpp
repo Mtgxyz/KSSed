@@ -88,6 +88,8 @@ auto VRAM::addTile(int index, int subindex, uint16_t mapent) -> void {
   tiles[index][subindex]=entry;
 }
 auto VRAM::setTile(int x, int y, uint16_t tile) -> void {
+  if(tile>tiles.size())
+    return;
   for(int i=0;i<3;i++) {
     for(int j=0;j<3;j++) {
       tilemap[x*3+i][y*3+j] = tiles[tile][i+j*3];

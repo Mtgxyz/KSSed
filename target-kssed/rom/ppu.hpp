@@ -26,11 +26,11 @@ private:
   }__attribute__((packed));
   union mapentry {
     struct map {
-      uint16_t chr : 10;
-      uint8_t pal : 3;
-      uint8_t prio : 1;
-      uint8_t verticalFlip : 1;
       uint8_t horizontalFlip : 1;
+      uint8_t verticalFlip : 1;
+      uint8_t prio : 1;
+      uint8_t pal : 3;
+      uint16_t chr : 10;
     }__attribute__((packed)) entr;
     uint16_t entry;
   };
