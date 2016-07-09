@@ -38,7 +38,7 @@ Program::Program(lstring args) {
   bindtextdomain("kssed", ".");
   textdomain("kssed");
   program=this;
-  directory::create({configpath(), "kssed/"});
+  directory::create({Path::config(), "kssed/"});
   Application::onMain({&Program::main, this});
   new ConfigurationManager;
   new mainWindow;
