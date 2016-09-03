@@ -1,6 +1,6 @@
 name := kssed
 
-ui_objects := ui-kssed
+ui_objects := ui-kssed ui-program
 ui_objects += ruby hiro
 ui_objects += $(if $(call streq,$(platform),windows),ui-resource)
 
@@ -42,6 +42,7 @@ obj/hiro.o: ../hiro/hiro.cpp $(call rwildcard,../hiro/)
 	$(compiler) $(hiroflags) -c $< -o $@
 
 obj/ui-kssed.o: $(ui)/kssed.cpp $(call rwildcard,$(ui)/)
+obj/ui-program.o: $(ui)/program/program.cpp $(call rwildcard,$(ui)/)
 
 
 # targets

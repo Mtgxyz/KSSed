@@ -8,4 +8,5 @@ extern unique_pointer<Video> video;
 extern unique_pointer<Audio> audio;
 extern unique_pointer<Input> input;
 
+#include "program/program.hpp"
 auto locate(string name) -> string;
