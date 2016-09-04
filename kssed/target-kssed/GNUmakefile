@@ -1,6 +1,7 @@
 name := kssed
 
-ui_objects := ui-kssed ui-program
+ui_objects := ui-kssed ui-program ui-config ui-mainwindow ui-rom
+ui_objects += ui-room
 ui_objects += ruby hiro
 ui_objects += $(if $(call streq,$(platform),windows),ui-resource)
 
@@ -43,8 +44,10 @@ obj/hiro.o: ../hiro/hiro.cpp $(call rwildcard,../hiro/)
 
 obj/ui-kssed.o: $(ui)/kssed.cpp $(call rwildcard,$(ui)/)
 obj/ui-program.o: $(ui)/program/program.cpp $(call rwildcard,$(ui)/)
-
-
+obj/ui-config.o: $(ui)/configuration/config.cpp $(call rwildcard,$(ui)/)
+obj/ui-mainwindow.o: $(ui)/ui/mainwindow.cpp $(call rwildcard,$(ui)/)
+obj/ui-rom.o: $(ui)/sfc/rom.cpp $(call rwildcard,$(ui)/)
+obj/ui-room.o: $(ui)/ksd/room.cpp $(call rwildcard,$(ui)/)
 # targets
 build: $(objects)
 	$(strip $(compiler) -o out/$(name) $(objects) $(link))
